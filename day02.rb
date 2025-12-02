@@ -12,7 +12,6 @@ while ranges = STDIN.gets
             chunk_sizes.each do |chunk_size|
                 if first_s.scan(/.{1,#{chunk_size}}/).uniq.length == 1
                     invalid_ids_sum += first
-                    puts "Invalid id: #{first}"
                     break
                 end
             end
