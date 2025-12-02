@@ -4,7 +4,7 @@ while ranges = STDIN.gets
     ranges.split(',').each do |range|
         first, last = range.split('-').map(&:to_i)
 
-        (first..last).each() do |current|
+        (first..last).each do |current|
             current_s = current.to_s
             current_s_len = current_s.length
             chunk_sizes = (1..(current_s_len / 2))
