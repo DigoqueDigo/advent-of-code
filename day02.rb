@@ -1,7 +1,6 @@
 invalid_ids_sum = 0
 
 while ranges = STDIN.gets
-
     ranges.split(',').each do |range|
         first, last = range.split('-').map(&:to_i)
 
