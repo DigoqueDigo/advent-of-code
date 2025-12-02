@@ -15,7 +15,7 @@ while line = STDIN.gets
 
     if dial == 0
         zeros += 1
-    elsif direction == 'R' and old_dial > dial and old_dial != 0
+    elsif direction == 'R' and old_dial > dial
         zeros += 1
     elsif direction == 'L' and old_dial < dial and old_dial != 0
         zeros += 1
