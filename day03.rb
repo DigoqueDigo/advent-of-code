@@ -1,26 +1,3 @@
-
-# PART I
-# while bank = STDIN.gets&.chomp
-#     first = '0'
-#     second = '0'
-
-#     bank[0...-1].each_char do |element|
-#         if element > first
-#             first = element
-#             second = '0'
-#         elsif element > second
-#             second = element
-#         end
-
-#     end
-
-#     if bank[-1] > second
-#       second = bank[-1]
-#     end
-
-#     joltage_sum += (first + second).to_i
-# end
-
 joltage_sum = 0
 
 while bank = STDIN.gets&.chomp
