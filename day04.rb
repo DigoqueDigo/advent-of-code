@@ -1,13 +1,13 @@
 lines = Array.new
-accessible_roles = 0
-prev_accessible_roles = nil
+accessible_rolls = 0
+prev_accessible_rolls = nil
 
 while line = STDIN.gets&.chomp
     lines.push(line)
 end
 
-while prev_accessible_roles != accessible_roles
-    prev_accessible_roles = accessible_roles
+while prev_accessible_rolls != accessible_rolls
+    prev_accessible_rolls = accessible_rolls
     lines.each_with_index do |line, y_index|
         line.chars.each_with_index do |char, x_index|
             rolls = 0
@@ -27,7 +27,7 @@ while prev_accessible_roles != accessible_roles
                 end
                 
                 if rolls < 4
-                    accessible_roles += 1
+                    accessible_rolls += 1
                     lines[y_index][x_index] = '.'
                 end
             end
@@ -35,4 +35,4 @@ while prev_accessible_roles != accessible_roles
     end
 end
 
-puts "Accessible roles: #{accessible_roles}"
+puts "Accessible rolls: #{accessible_rolls}"
