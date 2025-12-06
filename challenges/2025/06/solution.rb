@@ -5,9 +5,11 @@ module Year2025
     # Call `data` to access either an array of the parsed data, or a single record for a 1-line input file
 
     def part_1
-      data.map{ |_, problem|
-        problem[:numbers].map(&:to_i).reduce(&problem[:operation]) 
-      }.sum
+      data.values.sum { |problem| 
+        problem[:numbers]
+          .map(&:to_i)
+          .reduce(&problem[:operation])
+      }
     end
 
     def part_2
