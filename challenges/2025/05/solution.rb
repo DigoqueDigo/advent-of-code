@@ -5,45 +5,27 @@ module Year2025
     # Call `data` to access either an array of the parsed data, or a single record for a 1-line input file
 
     def part_1
-      fresh_ids = 0
-
-      data[:ids].each do |id|
-        data[:ranges].each do |range|
-          if range.include?(id)
-            fresh_ids += 1
-            break
-          end
+      data[:ids].count do |id|
+        data[:ranges].any? do |range|
+          range.include?(id)
         end
       end
-
-      fresh_ids
     end
 
-    def part_2
-      has_changed = true
-      ranges = data[:ranges].sort_by(&:begin)
+  def part_2
+    merged = []
+    sorted = data[:ranges].sort_by(&:begin)
 
-      while has_changed
-        has_changed = false
-
-        ranges.each_cons(2) do |a, b|
-          if a.begin <= b.end and b.begin <= a.end
-            ranges.delete(a)
-            ranges.delete(b)
-
-            r_end = [a.end, b.end].max
-            r_begin = [a.begin, b.begin].min
-
-            ranges.push((r_begin..r_end))
-            ranges.sort_by!(&:begin)            
-            has_changed = true
-            break
-          end
-        end
+    sorted.each do |range|
+      if merged.empty? || merged.last.end < range.begin
+        merged << range
+      else
+        merged[-1] = merged.last.begin..[merged.last.end, range.end].max
       end
-
-      ranges.map(&:count).sum
     end
+
+    merged.sum { |range| range.count }
+  end
 
     private
       # Processes each line of the input file and stores the result in the dataset
@@ -53,21 +35,18 @@ module Year2025
 
       # Processes the dataset as a whole
       def process_dataset(set)
-        id_list = []
-        range_list = []
-        switch_ar = false
+        split_index = set.index('')
+        ranges = set[0...split_index]
+        ids = set[(split_index + 1)..-1]
 
-        set.each do |line|
-          switch_ar = true if line.length == 0
-          if switch_ar
-            id_list.push(line.to_i)
-          else
-            start_id, end_id = line.split('-').map(&:to_i)
-            range_list.push(start_id..end_id)
-          end
+        ranges.map! do |line|
+          start_id, end_id = line.split('-').map(&:to_i)
+          start_id..end_id
         end
 
-        return { ranges: range_list, ids: id_list }
+        ids.map!(&:to_i)
+
+        { ranges: ranges, ids: ids }
       end
   end
 end
