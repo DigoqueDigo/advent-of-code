@@ -5,34 +5,34 @@ module Year2025
     # Call `data` to access either an array of the parsed data, or a single record for a 1-line input file
 
     def update_map(map)
-      accessible_rolls = Array.new
-      map.each_with_index do |line, y_index|
-        line.chars.each_with_index do |char, x_index|
-          rolls = 0
-          if char == '@'
-            adjacent_x = ((x_index-1)..(x_index+1))
-              .select{ |x| x >= 0 and x < line.length }
-            
-            adjacent_y = ((y_index-1)..(y_index+1))
-              .select{ |y| y >= 0 and y < map.length }
+      height = map.length
+      width = map.first.length
+      accessible = []
 
-            adjacent_x.each do |x|
-              adjacent_y.each do |y|
-                if x != x_index or y != y_index and map[y][x] == '@'
-                  rolls += 1
-                end 
-              end
-            end
-            
-            if rolls < 4
-              accessible_rolls.push([x_index, y_index])
+      map.each_with_index do |line, y|
+        line.each_char.with_index do |char, x|
+          next unless char == '@'
+          rolls = 0
+
+          (-1..1).each do |dy|
+            ny = y + dy
+            next if ny < 0 or ny >= height
+
+            (-1..1).each do |dx|
+              nx = x + dx
+              next if nx < 0 or nx >= width
+              next if dx == 0 and dy == 0
+
+              rolls += 1 if map[ny][nx] == '@'
             end
           end
+
+          accessible << [x, y] if rolls < 4
         end
       end
 
-      accessible_rolls.each { |x,y| map[y][x] = 'X'}
-      accessible_rolls.length
+      accessible.each { |x, y| map[y][x] = 'X'}
+      accessible.length
     end
 
     def part_1
