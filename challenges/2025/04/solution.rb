@@ -40,15 +40,11 @@ module Year2025
     end
 
     def part_2
-      accessible_rolls = 0
-      old_accessible_rolls = nil
-
-      while accessible_rolls != old_accessible_rolls
-        old_accessible_rolls = accessible_rolls
-        accessible_rolls += update_map(data)
+      total = 0
+      while (changed = update_map(data)) > 0
+        total += changed
       end
-
-      accessible_rolls
+      total
     end
 
     private
