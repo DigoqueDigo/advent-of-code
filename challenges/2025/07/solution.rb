@@ -12,7 +12,7 @@ module Year2025
       col.between?(0, diagram.first.length - 1)
     end
 
-    def parse_diagram(diagram, coord, nodes_map)
+    def parse_diagram(diagram, coord, nodes_map = {})
       row = coord.row
       col = coord.col
 
@@ -39,6 +39,8 @@ module Year2025
         parse_diagram(diagram, left_coord, nodes_map)
         parse_diagram(diagram, right_coord, nodes_map)
       end
+
+      nodes_map
     end
 
     def count_timelines(coord, nodes_map, memo = {})
@@ -81,9 +83,8 @@ module Year2025
         row_idx = set.index { |row| row.include?(target)}
         col_idx = set[row_idx].index(target)
         
-        nodes_map = {}
         root = Coord.new(row: row_idx, col: col_idx)
-        parse_diagram(set, root, nodes_map)
+        nodes_map = parse_diagram(set, root)
 
         { root: root, nodes_map: nodes_map }
       end
