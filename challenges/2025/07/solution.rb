@@ -5,7 +5,7 @@ module Year2025
     # Call `data` to access either an array of the parsed data, or a single record for a 1-line input file
 
     Coord = Struct.new(:row, :col)
-    Node  = Struct.new(:coord, :left, :right, :down, :seen)
+    Node  = Struct.new(:coord, :left, :right, :down)
 
     def valid_coord?(diagram, (row, col))
       row.between?(0, diagram.length - 1) and
