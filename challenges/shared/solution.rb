@@ -9,8 +9,9 @@ class Solution
     new(*input).part_2
   end
 
-  def initialize(input)
+  def initialize(input, iterations = nil)
     @input = input
+    @iterations = iterations
   end
 
   def data
