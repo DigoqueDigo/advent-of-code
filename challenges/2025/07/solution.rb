@@ -12,10 +12,12 @@ module Year2025
       col.between?(0, diagram.first.length - 1)
     end
 
-    def parse_diagram(diagram, coord, nodes_map, reuse = false)
+    def parse_diagram(diagram, coord, nodes_map)
       row = coord.row
       col = coord.col
+
       return unless valid_coord?(diagram, [row, col])
+      return if nodes_map.key?(coord)
 
       val = diagram[row][col]
       node = nodes_map[coord] ||= Node.new(coord)
@@ -34,10 +36,8 @@ module Year2025
         node.left  = left_coord
         node.right = right_coord
 
-        unless reuse
-          parse_diagram(diagram, left_coord, nodes_map)
-          parse_diagram(diagram, right_coord, nodes_map)
-        end
+        parse_diagram(diagram, left_coord, nodes_map)
+        parse_diagram(diagram, right_coord, nodes_map)
       end
     end
 
