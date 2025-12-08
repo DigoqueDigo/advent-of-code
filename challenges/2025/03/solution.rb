@@ -10,7 +10,7 @@ module Year2025
 
       (0...digits).reverse_each do |index|
           chunk = bank[start_index...(bank.length - index)]
-          char, idx = chunk.chars.each_with_index.max_by { |char, _i| char }
+          char, idx = chunk.each_char.with_index.max_by { |char, _i| char }
           start_index += idx + 1
           joltage += char
       end
