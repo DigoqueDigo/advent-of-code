@@ -41,66 +41,33 @@ module Year2025
       end
     end
 
+    def count_timelines(coord, nodes_map, memo = {})
+      return 0 unless coord
+      return 1 unless nodes_map.key?(coord)
 
+      return memo[coord] if memo.key?(coord)
 
+      total = 0
+      node = nodes_map[coord]
 
+      total += count_timelines(node.left, nodes_map, memo)   if node.left
+      total += count_timelines(node.right, nodes_map, memo)  if node.right
+      total += count_timelines(node.down, nodes_map, memo)   if node.down
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    def count_timelines(coord, nodes_map)
-      if coord and !nodes_map.key?(coord)
-        return 1
-      elsif coord
-        node = nodes_map[coord]
-        return count_timelines(node.left, nodes_map) +
-          count_timelines(node.right, nodes_map) +
-          count_timelines(node.down, nodes_map)
-      else
-        return 0
-      end
+      memo[coord] = total
+      total
     end
-
 
     def part_1
       data[:nodes_map]
         .each_value
-        .select { |coord| coord.left and coord.right}
+        .select { |coord| coord.left and coord.right }
         .count
     end
 
     def part_2
-      puts "booo......................."
       count_timelines(data[:root], data[:nodes_map])
     end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     private
       # Processes each line of the input file and stores the result in the dataset
@@ -117,17 +84,6 @@ module Year2025
         nodes_map = {}
         root = Coord.new(row: row_idx, col: col_idx)
         parse_diagram(set, root, nodes_map)
-
-        nodes_map.each do |coord, node|
-          left_coord  = node.left
-          right_coord = node.right
-          down_coord  = node.down
-
-          puts "Node at #{coord.row};#{coord.col} => " \
-              "left: #{left_coord&.row};#{left_coord&.col} " \
-              "right: #{right_coord&.row};#{right_coord&.col} " \
-              "down: #{down_coord&.row};#{down_coord&.col}"
-        end
 
         { root: root, nodes_map: nodes_map }
       end
