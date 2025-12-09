@@ -43,7 +43,6 @@ module Year2025
     end
 
     def part_2
-      a, b = nil, nil
       while data[:circuits].size > 1
         a, b, _ = data[:junc_boxes_pairs].pop
         connect_junc_boxes(a, b, data[:circuits], data[:circuits_lookup])
