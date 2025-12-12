@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-require 'opt'
 require 'glpk'
+require 'opt-rb'
 
 module Year2025
   class Day10 < Solution
@@ -41,14 +41,14 @@ module Year2025
       end
 
       joltages.each_with_index do |target, counter_idx|
-        expr = vars.each_with_index.sum(0) do |var, button_idx|
+        expr = vars.each_with_index.sum do |var, button_idx|
           button = buttons[button_idx]
           var * (button.include?(counter_idx) ? 1 : 0)
         end
         prob.add(expr == target)
       end
 
-      prob.minimize(vars.sum(0))
+      prob.minimize(vars.sum)
       prob.solve(solver: :glpk)
       vars.sum(&:value)
     end
