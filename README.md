@@ -13,9 +13,12 @@ The following benchmarks show the execution times of each solution, all tests we
 
 > **Note:** Times are measured in seconds and may vary slightly depending on system load. This benchmark is meant to give a relative idea of performance between different days and parts.
 
-<div style="display: flex; gap: 40px;">
-
-<div>
+<table>
+<tr>
+  <th>Benchmarks 2025 (Days 1–6)</th>
+  <th>Benchmarks 2025 (Days 7-12)</th>
+</tr>
+<tr><td>
 
 | Day   | Part  | Time (seconds)    |
 |----:  |:----: |---------------:   |
@@ -32,9 +35,7 @@ The following benchmarks show the execution times of each solution, all tests we
 | 06    | 1     | 0.075060921       |
 | 06    | 2     | 0.013302759       |
 
-</div>
-
-<div>
+</td><td>
 
 | Day   | Part  | Time (seconds)    |
 |----:  |:----: |---------------:   |
@@ -49,5 +50,6 @@ The following benchmarks show the execution times of each solution, all tests we
 | 11    | 1     | 0.000855921       |
 | 11    | 2     | 0.001953254       |
 | 12    | 1     | 0.008248848       |
+| 12    | 2     | nil               |
 
-</div>
+</td></tr> </table>
