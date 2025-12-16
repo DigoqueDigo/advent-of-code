@@ -46,15 +46,15 @@ module Year2025
     end
 
     def part_1
-      data.sum { |range| 
+      data.sum do |range| 
         sum_invalid_ids(range, 2)
-      }
+      end
     end
 
     def part_2
-      data.sum { |range| 
+      data.sum do |range| 
         sum_invalid_ids(range)
-      }
+      end
     end
 
     private
