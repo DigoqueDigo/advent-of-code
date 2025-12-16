@@ -8,26 +8,31 @@ module Year2025
       total = 0
 
       range.each do |current|
-        s = current.to_s
-        len = s.length
-        max_chunk = len / 2
+        current_len = Math.log10(current).to_i + 1
+        max_chunk = current_len / 2
 
         (1..max_chunk).each do |chunk|
-          next unless (len % chunk).zero?
+          next unless (current_len % chunk).zero?
 
-          reps = len / chunk
-          next if repetitions and repetitions != reps
+          reps = current_len / chunk
+          next if repetitions && repetitions != reps
 
-          i = chunk
-          piece = s[0, chunk]
+          pow = 10 ** (current_len - chunk)
+          piece = (current / pow) % (10 ** chunk)
+
           valid = true
+          begin_off = chunk
 
-          while i < len
-            if s[i, chunk] != piece
+          while begin_off < current_len
+            pow = 10 ** (current_len - (begin_off + chunk))
+            curr_piece = (current / pow) % (10 ** chunk)
+
+            if curr_piece != piece
               valid = false
               break
             end
-            i += chunk
+
+            begin_off += chunk
           end
 
           if valid
